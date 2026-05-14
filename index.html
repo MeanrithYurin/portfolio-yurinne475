@@ -494,13 +494,25 @@
           </div>
 
           <!-- This form sends messages to Telegram through api/telegram.js on Vercel. -->
-          <form class="form" id="contactForm">
-            <input type="text" name="name" placeholder="Your name" required />
-            <input type="email" name="email" placeholder="Your email" required />
-            <textarea name="message" rows="5" placeholder="Your message" required></textarea>
-            <button type="submit">Send Message</button>
-            <div class="form-status" id="formStatus"></div>
-        </form> 
+          <form 
+              class="form" 
+              id="contactForm"
+              action="https://formsubmit.co/yurin2t2t2t@gmail.com"
+              method="POST">
+
+              <input type="text" name="name" placeholder="Your name" required />
+
+              <input type="email" name="email" placeholder="Your email" required />
+
+              <textarea name="message" rows="5" placeholder="Your message" required></textarea>
+
+              <input type="hidden" name="_subject" value="New message from portfolio website">
+              <input type="hidden" name="_template" value="table">
+              <input type="hidden" name="_captcha" value="false">
+
+              <button type="submit">Send Message</button>
+              <div class="form-status" id="formStatus"></div>
+          </form>
         </div>
       </div>
     </section>

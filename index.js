@@ -213,6 +213,8 @@ if (certCards.length > 6 && seeMoreCertsBtn) {
   seeMoreCertsBtn.style.display = "none";
 }
 
+
+
 const contactForm = document.getElementById("contactForm");
 const formStatus = document.getElementById("formStatus");
 
@@ -254,3 +256,4 @@ if (contactForm && formStatus) {
     }
   });
 }
+

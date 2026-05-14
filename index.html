@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meanrith Yurin | Portfolio</title>
+  <meta name="description" content="Portfolio of Meanrith Yurin, an IT student focused on data analytics, web development, social media design, youth projects, certificates, and achievements." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a href="#home" class="logo">Meanrith<span>Yurin</span></a>
+      <button class="mobile-toggle" id="menuBtn">Menu</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#certificates">Certificates</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact" class="btn btn-primary">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header id="home" class="hero">
+    <div class="container hero-grid">
+      <div>
+        <!-- <div class="badge">IT Student • Data Analytics • Web Projects • Youth Innovation</div> -->
+        <h1>Building digital skills and real projects for Cambodia’s future.</h1>
+        <p>
+          I am Meanrith Yurin, an Information Technology student with experience in teaching, data analytics, social media design, and youth innovation projects. I enjoy learning new technologies and using them to solve real problems.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#certificates" class="btn btn-outline">View Certificates</a>
+          <a href="mailto:yurin2t2t2t@gmail.com" class="btn btn-outline">Email Me</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong>2</strong><span>Funded youth projects</span></div>
+          <div class="stat"><strong>5+</strong><span>Skill areas practiced</span></div>
+          <div class="stat"><strong>10+</strong><span>Certificates and programs</span></div>
+        </div>
+      </div>
+
+      <aside class="profile-card">
+        <div class="profile-img">
+          <img src="images/profile.jpg" alt="Meanrith Yurin profile photo" onerror="this.style.display='none'; this.parentElement.innerHTML='Add your profile photo here';" />
+        </div>
+        <h2>Meanrith Yurin</h2>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section id="about">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-label">About Me</div>
+            <h2 class="section-title">A curious learner who turns ideas into projects.</h2>
+          </div>
+          <p class="section-desc">
+            I combine technical learning with creativity, communication, and leadership experience from education, data analytics, and youth innovation projects.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <h3>Education</h3>
+            <p>• Bachelor of Information Technology student at Build Bright University</p>
+            <p>• Bachelor of Computer Science student at Royal University of Phnom Penh</p>
+            <p>• Short Course : Data With Python at Dichi Academy</p>
+            <div class="tags"><span class="tag">Information Technology</span><span class="tag">Computer Science</span></div>
+
+          </div>
+          <div class="card">
+            <h3>Technical Skills</h3>
+            <p>Python, SQL, C++, PHP, JavaScript, HTML, CSS, Excel, Power BI, data cleaning, and database management.</p>
+            <div class="tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">Power BI</span><span class="tag">Web</span></div>
+          </div>
+          <div class="card">
+            <h3>Creative & Soft Skills</h3>
+            <p>Graphic design, social media planning, content creation, problem solving, teamwork, communication, and leadership.</p>
+            <div class="tags"><span class="tag">Design</span><span class="tag">Leadership</span><span class="tag">Teamwork</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-label">Projects</div>
+            <h2 class="section-title">Featured projects and initiatives.</h2>
+          </div>
+          <p class="section-desc">Each card has sample links now. Later, replace <b>#</b> with your GitHub, live demo, or project post link. Replace image paths with your own images.</p>
+        </div>
+
+       <div class="grid-3">
+
+        <!-- BLACK CUBE -->
+        <article class="card project-card">
+          <div class="project-slider">
+            <button class="slide-btn prev" onclick="moveSlide(this, -1)">‹</button>
+
+            <div class="slides">
+              <img src="images/BlackCube.jpg" alt="BLACK CUBE photo 1" class="active">
+              <img src="images/BlackCube2.jpg" alt="BLACK CUBE photo 2">
+              <img src="images/BlackCube3.jpg" alt="BLACK CUBE photo 3">
+              <img src="images/BlackCube4.jpg" alt="BLACK CUBE photo 4">
+            </div>
+
+            <button class="slide-btn next" onclick="moveSlide(this, 1)">›</button>
+          </div>
+
+          <div>
+            <h3>BLACK CUBE</h3>
+            <p>A student food innovation project developing a convenient black chicken soup cube for busy students, workers, and families.</p>
+          </div>
+
+          <div class="tags">
+            <span class="tag">Startup</span>
+            <span class="tag">Research</span>
+            <span class="tag">Food Innovation</span>
+          </div>
+
+          <div class="project-links">
+            <a class="small-link" href="#" target="_blank">Details</a>
+            <a class="small-link" href="#" target="_blank">Photos</a>
+          </div>
+        </article>
+
+        <!-- CAMBODIA ROAD RISK AI -->
+        <article class="card project-card">
+          <div class="project-slider">
+            <button class="slide-btn prev" onclick="moveSlide(this, -1)">‹</button>
+
+            <div class="slides">
+              <img src="images/road-risk-ai.jpg" alt="Cambodia Road Risk AI photo 1" class="active">
+              <img src="images/road-risk-ai2.jpg" alt="Cambodia Road Risk AI photo 2">
+              <img src="images/road-risk-ai3.jpg" alt="Cambodia Road Risk AI photo 3">
+              <img src="images/road-risk-ai4.jpg" alt="Cambodia Road Risk AI photo 4">
+              <img src="images/road-risk-ai5.jpg" alt="Cambodia Road Risk AI photo 5">              
+              <img src="images/road-risk-ai6.jpg" alt="Cambodia Road Risk AI photo 6">
+              <img src="images/road-risk-ai7.jpg" alt="Cambodia Road Risk AI photo 7">
+
+
+
+            </div>
+
+            <button class="slide-btn next" onclick="moveSlide(this, 1)">›</button>
+          </div>
+
+          <div>
+            <h3>Cambodia Road Risk AI</h3>
+            <p>An AI/ML prototype that predicts road risk using generated sample data and displays insights in a web app.</p>
+          </div>
+
+          <div class="tags">
+            <span class="tag">Python</span>
+            <span class="tag">AI/ML</span>
+            <span class="tag">Streamlit</span>
+          </div>
+
+          <div class="project-links">
+            <a class="small-link" href="#" target="_blank">GitHub</a>
+            <a class="small-link" href="#" target="_blank">Live Demo</a>
+            <a class="small-link" href="#" target="_blank">Details</a>
+          </div>
+        </article>
+
+        <!-- POWER BI DASHBOARD -->
+        <article class="card project-card">
+          <div class="project-slider">
+            <button class="slide-btn prev" onclick="moveSlide(this, -1)">‹</button>
+
+            <div class="slides">
+              <img src="images/powerbi-dashboard.jpg" alt="Power BI dashboard photo 1" class="active">
+              <img src="images/powerbi-dashboard2.jpg" alt="Power BI dashboard photo 2">
+             
+            </div>
+
+            <button class="slide-btn next" onclick="moveSlide(this, 1)">›</button>
+          </div>
+
+          <div>
+            <h3>Power BI Dashboard</h3>
+            <p>Data analytics dashboard work using Power BI to support reporting, performance tracking, and department insights.</p>
+          </div>
+
+          <div class="tags">
+            <span class="tag">Power BI</span>
+            <span class="tag">Excel</span>
+            <span class="tag">Data Analysis</span>
+          </div>
+
+          <div class="project-links">
+            <a class="small-link" href="#" target="_blank">Screenshot</a>
+            <a class="small-link" href="#" target="_blank">Details</a>
+          </div>
+        </article>
+
+        <!-- 4YOUTH -->
+        <article class="card project-card">
+          <div class="project-slider">
+            <button class="slide-btn prev" onclick="moveSlide(this, -1)">‹</button>
+
+            <div class="slides">
+              <img src="images/4youth.jpg" alt="4Youth photo 1" class="active">
+              <img src="images/4youth1.jpg" alt="4Youth photo 2">
+              <img src="images/4youth3.jpg" alt="4Youth photo 3">
+              <img src="images/4youth4.jpg" alt="4Youth photo 4">              
+              <img src="images/4youth5.jpg" alt="4Youth photo 5">
+
+
+            </div>
+
+            <button class="slide-btn next" onclick="moveSlide(this, 1)">›</button>
+          </div>
+
+          <div>
+            <h3>4Youth</h3>
+            <p>A youth project delivering career readiness and digital literacy workshops. I supported social media design and project communication.</p>
+          </div>
+
+          <div class="tags">
+            <span class="tag">Youth</span>
+            <span class="tag">Design</span>
+            <span class="tag">Digital Literacy</span>
+          </div>
+
+          <div class="project-links">
+            <a class="small-link" href="#" target="_blank">Project Link</a>
+            <a class="small-link" href="#" target="_blank">Photos</a>
+          </div>
+        </article>
+
+        <!-- EDVENTURE EDUCATION -->
+        <article class="card project-card">
+          <div class="project-slider">
+            <button class="slide-btn prev" onclick="moveSlide(this, -1)">‹</button>
+
+            <div class="slides">
+              <img src="images/edv1.jpg" alt="Edventure Education photo 1" class="active">
+              <img src="images/edv2.jpg" alt="Edventure Education photo 2">
+              <img src="images/edv5.jpg" alt="Edventure Education photo 5">
+            </div>
+
+            <button class="slide-btn next" onclick="moveSlide(this, 1)">›</button>
+          </div>
+
+          <div>
+            <h3>Edventure Education</h3>
+            <p>An education project selected as a winning team in Impact Hub Phnom Penh x Phum Impact. I worked on graphic design and social media.</p>
+          </div>
+
+          <div class="tags">
+            <span class="tag">Education</span>
+            <span class="tag">Social Media</span>
+            <span class="tag">Graphic Design</span>
+          </div>
+
+          <div class="project-links">
+            <a class="small-link" href="#" target="_blank">Project Link</a>
+            <a class="small-link" href="#" target="_blank">Photos</a>
+          </div>
+        </article>
+
+        <!-- WEB DEVELOPMENT PROJECTS -->
+        <article class="card project-card">
+          <div class="project-slider">
+            <button class="slide-btn prev" onclick="moveSlide(this, -1)">‹</button>
+
+            <div class="slides">
+              <img src="images/pr1.jpg" alt="Web project photo 1" class="active">
+              <img src="images/pr2.jpg" alt="Web project photo 2">
+              <img src="images/pr3.jpg" alt="Web project photo 3">
+              <img src="images/pr4.jpg" alt="Web project photo 4">
+            </div>
+
+            <button class="slide-btn next" onclick="moveSlide(this, 1)">›</button>
+          </div>
+
+          <div>
+            <h3>Web Development Projects</h3>
+            <p>Small web projects built with HTML, CSS, JavaScript, VueJS, and other tools during courses and practice.</p>
+          </div>
+
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">VueJS</span>
+          </div>
+
+          <div class="project-links">
+            <a class="small-link" href="#" target="_blank">GitHub</a>
+            <a class="small-link" href="#" target="_blank">Live Demo</a>
+          </div>
+        </article>
+
+      </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="container">
+        <div class="section-head">
+          <div><div class="section-label">Experience</div><h2 class="section-title">Learning through work, projects, and volunteering.</h2></div>
+        </div>
+        <div class="timeline">
+          <div class="timeline-item"><div class="time">Dec 2025 — Current</div><div><h3>Data Analytics Intern • TotalEnergies</h3><p>Support customer service data work and build interactive Power BI dashboards to improve performance insights.</p></div></div>
+          <div class="timeline-item"><div class="time">Jul 2025 — Current</div><div><h3>Social Media & Design Lead • 4Youth</h3><p>Supported a youth project focused on career readiness and digital literacy through content planning, posters, and communication.</p></div></div>
+          <div class="timeline-item"><div class="time">Jun 2025 — Sep 2025</div><div><h3>Computer Teacher • ScholarX Academy</h3><p>Taught students aged 9–12 Microsoft Word, Excel, PowerPoint, Scratch, Python, and poster design.</p></div></div>
+          <div class="timeline-item"><div class="time">Mar 2025 — May 2025</div><div><h3>Social Media • Edventure Education</h3><p>Worked as a graphic designer managing social media and posters for an education project selected for funding.</p></div></div>
+          <div class="timeline-item"><div class="time">2025</div><div><h3>Volunteer Activities</h3><p>Youth Physics Competition Online, Hallyu CKCC, and market research survey work with Aprati Foods.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="certificates">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="section-label">Certificates</div>
+          <h2 class="section-title">Certificates and learning programs.</h2>
+        </div>
+        <p class="section-desc">
+          Click “View” to open the certificate in a pop-up.
+        </p>
+      </div>
+
+      <div class="cert-list">
+        <div class="cert cert-text-only">
+          <div class="cert-body">
+            <div>
+              <strong>Data with Python</strong>
+              <span>Dichi Academy</span>
+            </div>
+            <button type="button" class="small-link" data-title="Data with Python" data-img="images/cert-data-python.jpg">View</button>
+          </div>
+        </div>
+
+        <div class="cert cert-text-only">
+          <div class="cert-body">
+            <div>
+              <strong>SQL for Data Analysis</strong>
+              <span>SimpliLearn</span>
+            </div>
+            <button type="button" class="small-link" data-title="SQL for Data Analysis" data-file="certificate/SQL for Data Analysis.pdf">View</button>
+          </div>
+        </div>
+
+        <div class="cert cert-text-only">
+          <div class="cert-body">
+            <div>
+              <strong>Introduction to Cloud Computing</strong>
+              <span>Coursera</span>
+            </div>
+            <button type="button" class="small-link" data-title="Introduction to Cloud Computing" data-file="certificate/Coursera D1OP1N4BRHDP.pdf">View</button>
+          </div>
+        </div>
+
+        <div class="cert cert-text-only">
+          <div class="cert-body">
+            <div>
+              <strong>Data Science Essentials with Python</strong>
+              <span>CISCO</span>
+            </div>
+            <button type="button" class="small-link" data-title="Data Science Essentials with Python" data-file="certificate/Data_Science_Essentials_with_Python_certificate_yurin2t2t2t-gmail-com_bfd2dbb2-6011-4c5a-aa07-7fb4e855a349 (1).pdf">View</button>
+          </div>
+        </div>
+
+        <div class="cert cert-text-only">
+          <div class="cert-body">
+            <div>
+              <strong>DYNAMIC Agripreneur Bootcamp Season 2</strong>
+              <span>NICC, Wonder International</span>
+            </div>
+            <button type="button" class="small-link" data-title="DYNAMIC Agripreneur Bootcamp" data-img="images/cert-dynamic.jpg">View</button>
+          </div>
+        </div>
+
+        <div class="cert cert-text-only">
+          <div class="cert-body">
+            <div>
+              <strong>Clean Energy Week Social Hackathon</strong>
+              <span>Energy Lab</span>
+            </div>
+            <button type="button" class="small-link" data-title="Clean Energy Week Social Hackathon" data-img="certificate/Socail hackathon/photo_2025-06-15_20-38-20.jpg">View</button>
+          </div>
+        </div>
+
+        <div class="cert cert-text-only">
+          <div class="cert-body">
+            <div>
+              <strong>ATC NextGen</strong>
+              <span>AUPP Technology Center</span>
+            </div>
+            <button type="button" class="small-link" data-title="ATC NextGen" data-img="certificate/NextGen AUPP/photo_2025-06-15_20-39-08.jpg">View</button>
+          </div>
+        </div>
+
+        <div class="cert cert-text-only">
+          <div class="cert-body">
+            <div>
+              <strong>Social Hackathon of Generation Future 2025</strong>
+              <span>Impact Hub Phnom Penh</span>
+            </div>
+            <button type="button" class="small-link" data-title="Social Hackathon of Generation Future 2025" data-img="certificate/Generation Future/photo_2025-06-15_20-39-12.jpg">View</button>
+          </div>
+        </div>
+
+        <div class="cert cert-text-only">
+          <div class="cert-body">
+            <div>
+              <strong>Social Hackathon of Generation Future 2025</strong>
+              <span>Impact Hub Phnom Penh</span>
+            </div>
+            <button type="button" class="small-link" data-title="Social Hackathon of Generation Future 2025" data-img="certificate/Generation Future/photo_2025-06-15_20-39-12.jpg">View</button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="see-more-wrap">
+        <button type="button" id="seeMoreCerts" class="see-more-btn">
+          See More
+        </button>
+      </div>
+    </div>
+  </section>
+    <section id="achievements">
+      <div class="container">
+        <div class="section-head"><div><div class="section-label">Achievements</div><h2 class="section-title">Milestones I am proud of.</h2></div></div>
+        <div class="grid-3">
+          <div class="card"><h3>$1,500 Funded Projects</h3><p>Contributed to funded youth and education projects through Impact Hub Phnom Penh and partners.</p></div>
+          <div class="card"><h3>Students Aged 9–12</h3><p>Taught young learners digital skills including Word, Excel, PowerPoint, Scratch, and Python.</p></div>
+          <div class="card"><h3>BLACK CUBE</h3><p>Led a student food innovation project from problem research to surveys, budget planning, testing, and marketing preparation.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery">
+      <div class="container">
+        <div class="section-head">
+          <div><div class="section-label">Gallery</div><h2 class="section-title">Activity photos and evidence.</h2></div>
+        </div>
+        <div class="gallery">
+          <div class="gallery-item"><img src="images/gallery1.jpg" alt="University activity" onerror="this.remove(); this.parentElement.textContent='Add university activity photo';"></div>
+          <div class="gallery-item"><img src="images/gallery2.jpg" alt="Teaching activity" onerror="this.remove(); this.parentElement.textContent='Add teaching photo';"></div>
+          <div class="gallery-item"><img src="images/gallery3.jpg" alt="Hackathon activity" onerror="this.remove(); this.parentElement.textContent='Add hackathon photo';"></div>
+          <div class="gallery-item"><img src="images/gallery4.jpg" alt="Certificate activity" onerror="this.remove(); this.parentElement.textContent='Add certificate photo';"></div>
+          <div class="gallery-item"><img src="images/gallery5.jpg" alt="Team project activity" onerror="this.remove(); this.parentElement.textContent='Add team project photo';"></div>
+          <div class="gallery-item"><img src="images/gallery6.jpg" alt="Workshop activity" onerror="this.remove(); this.parentElement.textContent='Add workshop photo';"></div>
+          <div class="gallery-item"><img src="images/gallery7.jpg" alt="BLACK CUBE activity" onerror="this.remove(); this.parentElement.textContent='Add BLACK CUBE photo';"></div>
+          <div class="gallery-item"><img src="images/gallery8.jpg" alt="Volunteer activity" onerror="this.remove(); this.parentElement.textContent='Add volunteer photo';"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-card">
+          <div>
+            <div class="section-label" style="color:#bfdbfe;">Contact</div>
+            <h2 class="section-title">Let’s connect.</h2>
+            <p>For scholarships, internships, youth projects, collaboration, or questions about my work, you can send me a message.</p>
+
+            <div class="hero-actions" style="margin-top: 22px; margin-bottom:0;">
+              <a 
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=yurin2t2t2t@gmail.com&su=Portfolio Contact&body=Hello Yurin,"
+                class="btn btn-outline"
+                target="_blank">
+                Email Me
+              </a>
+              <a href="https://www.linkedin.com/in/yurin-meanrith-1a5423314/" 
+                class="btn btn-outline" 
+                target="_blank">
+                LinkedIn
+              </a>
+
+              <a href="https://github.com/MeanrithYurin/" 
+                class="btn btn-outline" 
+                target="_blank">
+                GitHub
+              </a>
+            </div>
+          </div>
+
+          <!-- This form sends messages to Telegram through api/telegram.js on Vercel. -->
+          <form class="form" id="contactForm">
+            <input type="text" name="name" placeholder="Your name" required />
+            <input type="email" name="email" placeholder="Your email" required />
+            <textarea name="message" rows="5" placeholder="Your message" required></textarea>
+            <button type="submit">Send Message</button>
+            <div class="form-status" id="formStatus"></div>
+        </form> 
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal" id="certModal">
+    <div class="modal-box">
+      <div class="modal-top">
+        <div class="modal-title" id="modalTitle">Certificate</div>
+        <button class="close-btn" id="closeModal">Close</button>
+      </div>
+      <div class="modal-content" id="modalContent">Certificate preview will show here.</div>
+    </div>
+  </div>
+
+  <footer><div class="container">© <span id="year"></span> Meanrith Yurin. Built with HTML, CSS, and JavaScript.</div></footer>
+
+
+  <!--
+    Telegram option note:
+    You can send messages to Telegram with a bot, but do NOT put your bot token directly in public frontend code.
+    Best safe way: create a small backend/serverless function that receives this form and sends it to Telegram.
+  -->
+<script src="script.js"></script>
+<script>
+  const sliders = document.querySelectorAll(".project-slider");
+
+  sliders.forEach((slider) => {
+    const images = slider.querySelectorAll(".slides img");
+    const prevBtn = slider.querySelector(".prev");
+    const nextBtn = slider.querySelector(".next");
+
+    let index = 0;
+
+    function showImage(newIndex) {
+      images[index].classList.remove("active");
+
+      index = newIndex;
+
+      if (index < 0) {
+        index = images.length - 1;
+      }
+
+      if (index >= images.length) {
+        index = 0;
+      }
+
+      images[index].classList.add("active");
+    }
+
+    nextBtn.addEventListener("click", () => {
+      showImage(index + 1);
+    });
+
+    prevBtn.addEventListener("click", () => {
+      showImage(index - 1);
+    });
+
+    setInterval(() => {
+      showImage(index + 1);
+    }, 3000);
+  });
+</script>
+<script src="script.js"></script>
+
+<script>
+// Certificate popup for image and PDF
+const certModal = document.getElementById("certModal");
+const certModalTitle = document.getElementById("modalTitle");
+const certModalContent = document.getElementById("modalContent");
+const certCloseModal = document.getElementById("closeModal");
+
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest("[data-img], [data-file]");
+
+  if (!btn) return;
+
+  const title = btn.getAttribute("data-title");
+  const file = btn.getAttribute("data-img") || btn.getAttribute("data-file");
+
+  if (!certModal || !certModalTitle || !certModalContent) return;
+
+  certModalTitle.textContent = title;
+
+  if (file.toLowerCase().endsWith(".pdf")) {
+    certModalContent.innerHTML = `
+      <iframe 
+        src="${file}" 
+        style="width:100%; height:75vh; border:none; border-radius:14px;">
+      </iframe>
+    `;
+  } else {
+    certModalContent.innerHTML = `
+      <img 
+        src="${file}" 
+        alt="${title}" 
+        onerror="this.remove(); this.parentElement.textContent='File not found: ${file}'">
+    `;
+  }
+
+  certModal.classList.add("open");
+  document.body.classList.add("modal-open");
+});
+
+function closeCertificateModal() {
+  if (!certModal) return;
+
+  certModal.classList.remove("open");
+  document.body.classList.remove("modal-open");
+}
+
+if (certCloseModal) {
+  certCloseModal.addEventListener("click", closeCertificateModal);
+}
+
+if (certModal) {
+  certModal.addEventListener("click", (e) => {
+    if (e.target === certModal) {
+      closeCertificateModal();
+    }
+  });
+}
+
+// See More / See Less certificates
+const certList = document.querySelector(".cert-list");
+const seeMoreCertsBtn = document.getElementById("seeMoreCerts");
+
+if (certList && seeMoreCertsBtn) {
+  const certCards = certList.querySelectorAll(".cert");
+
+  if (certCards.length <= 6) {
+    seeMoreCertsBtn.style.display = "none";
+  }
+
+  seeMoreCertsBtn.addEventListener("click", () => {
+    certList.classList.toggle("show-all");
+
+    const isShowingAll = certList.classList.contains("show-all");
+
+    seeMoreCertsBtn.textContent = isShowingAll ? "See Less" : "See More";
+  });
+}
+</script>
+
+</body>
+</html>
+
+</body>
+</html>

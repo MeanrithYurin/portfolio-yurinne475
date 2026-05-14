@@ -1,3 +1,4 @@
+databaseURL: "https://portfolio-rating-489af-default-rtdb.firebaseio.com/",
 console.log("script.js is working");
 
 // Mobile menu
@@ -257,3 +258,54 @@ if (contactForm && formStatus) {
   });
 }
 
+// Portfolio rating system
+const ratingStars = document.querySelectorAll("#ratingStars button");
+const ratingStatus = document.getElementById("ratingStatus");
+const ratingAverage = document.getElementById("ratingAverage");
+
+let ratings = JSON.parse(localStorage.getItem("portfolioRatings")) || [];
+
+function updateRatingAverage() {
+  if (!ratingAverage) return;
+
+  if (ratings.length === 0) {
+    ratingAverage.textContent = "No ratings yet.";
+    return;
+  }
+
+  const total = ratings.reduce((sum, rating) => sum + rating, 0);
+  const average = total / ratings.length;
+
+  ratingAverage.textContent = `${average.toFixed(1)} / 5 from ${ratings.length} rating${ratings.length > 1 ? "s" : ""}`;
+}
+
+function highlightStars(rating) {
+  ratingStars.forEach((star) => {
+    const starValue = Number(star.dataset.rate);
+
+    if (starValue <= rating) {
+      star.classList.add("active");
+    } else {
+      star.classList.remove("active");
+    }
+  });
+}
+
+ratingStars.forEach((star) => {
+  star.addEventListener("click", () => {
+    const rating = Number(star.dataset.rate);
+
+    ratings.push(rating);
+    localStorage.setItem("portfolioRatings", JSON.stringify(ratings));
+
+    highlightStars(rating);
+
+    if (ratingStatus) {
+      ratingStatus.textContent = `Thank you! You rated ${rating}/5.`;
+    }
+
+    updateRatingAverage();
+  });
+});
+
+updateRatingAverage();

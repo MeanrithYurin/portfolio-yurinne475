@@ -404,7 +404,14 @@
             </p>
           </div>
         </div>
-
+        <div class="see-more-wrap">
+          <button
+            type="button"
+            id="seeMoreExperience"
+            class="see-more-btn">
+            See More
+          </button>
+        </div>
       </div>
     </div>
   </section>
@@ -781,7 +788,54 @@ if (certList && seeMoreCertsBtn) {
     seeMoreCertsBtn.textContent = isShowingAll ? "See Less" : "See More";
   });
 }
+
+
 </script>
+
+```html
+<script>
+  const experienceItems = document.querySelectorAll(
+    "#experience .timeline-item"
+  );
+
+  const seeMoreExperienceBtn = document.getElementById(
+    "seeMoreExperience"
+  );
+
+  let visibleExperienceCount = 3;
+
+  function updateExperiences() {
+    experienceItems.forEach((item, index) => {
+      item.style.display =
+        index < visibleExperienceCount ? "" : "none";
+    });
+
+    if (experienceItems.length <= 3) {
+      seeMoreExperienceBtn.style.display = "none";
+      return;
+    }
+
+    if (visibleExperienceCount >= experienceItems.length) {
+      seeMoreExperienceBtn.textContent = "See Less";
+    } else {
+      seeMoreExperienceBtn.textContent = "See More";
+    }
+  }
+
+  seeMoreExperienceBtn.addEventListener("click", () => {
+    if (visibleExperienceCount >= experienceItems.length) {
+      visibleExperienceCount = 3;
+    } else {
+      visibleExperienceCount += 3;
+    }
+
+    updateExperiences();
+  });
+
+  updateExperiences();
+</script>
+```
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
   import { getDatabase, ref, get, set, onValue } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";

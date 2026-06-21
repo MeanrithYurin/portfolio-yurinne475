@@ -11,9 +11,33 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="cinematic-intro" id="cinematicIntro" aria-hidden="true"> <div class="intro-grid"></div> <div class="intro-beam"></div> <div class="intro-content"> <div class="intro-brand"> Meanrith<span>Yurin</span> </div> <div class="intro-line"></div> <p>Portfolio</p> </div> </div>
   <nav class="nav">
     <div class="container nav-inner">
-      <a href="#home" class="logo">Meanrith<span>Yurin</span></a>
+
+
+<a href="#home" class="logo elegant-logo" aria-label="Meanrith Yurin">
+  <span class="elegant-letter dark-letter" style="--i: 0">M</span>
+  <span class="elegant-letter dark-letter" style="--i: 1">e</span>
+  <span class="elegant-letter dark-letter" style="--i: 2">a</span>
+  <span class="elegant-letter dark-letter" style="--i: 3">n</span>
+  <span class="elegant-letter dark-letter" style="--i: 4">r</span>
+  <span class="elegant-letter dark-letter" style="--i: 5">i</span>
+  <span class="elegant-letter dark-letter" style="--i: 6">t</span>
+  <span class="elegant-letter dark-letter" style="--i: 7">h</span>
+
+  <span class="elegant-letter blue-letter" style="--i: 8">Y</span>
+  <span class="elegant-letter blue-letter" style="--i: 9">u</span>
+  <span class="elegant-letter blue-letter" style="--i: 10">r</span>
+  <span class="elegant-letter blue-letter" style="--i: 11">i</span>
+  <span class="elegant-letter blue-letter" style="--i: 12">n</span>
+
+  <span class="logo-shine" aria-hidden="true"></span>
+</a>
+
+
+
+
       <button class="mobile-toggle" id="menuBtn">Menu</button>
       <div class="nav-links" id="navLinks">
         <a href="#about">About</a>
@@ -32,7 +56,13 @@
     <div class="container hero-grid">
       <div>
         <!-- <div class="badge">IT Student • Data Analytics • Web Projects • Youth Innovation</div> -->
-        <h1>Turning ideas into digital projects that solve real problems.</h1>
+
+      <h1 class="hero-title">
+        Turning ideas into
+        <span class="title-highlight">digital projects</span>
+        that solve real problems.
+      </h1>
+
         <p>
           I am Meanrith Yurin, an Information Technology student with experience in teaching, data analytics, social media design, and youth innovation projects. I enjoy learning new technologies and using them to solve real problems.
         </p>
@@ -70,9 +100,7 @@
             <div class="section-label">About Me</div>
             <h2 class="section-title">A curious learner who turns ideas into projects.</h2>
           </div>
-          <p class="section-desc">
-            I combine technical learning with creativity, communication, and leadership experience from education, data analytics, and youth innovation projects.
-          </p>
+        
         </div>
 
         <div class="grid-3">
@@ -913,6 +941,57 @@ if (certList && seeMoreCertsBtn) {
     });
   });
 </script>
+```html
+<script>
+  const navigation = document.querySelector(".nav");
+  const navigationLinks = document.querySelectorAll(
+    '.nav-links a[href^="#"]:not(.btn)'
+  );
+
+  const pageSections = document.querySelectorAll(
+    "main section[id], header[id]"
+  );
+
+  // Add shadow and background after scrolling
+  function updateNavigationOnScroll() {
+    navigation.classList.toggle("scrolled", window.scrollY > 40);
+  }
+
+  window.addEventListener("scroll", updateNavigationOnScroll);
+  updateNavigationOnScroll();
+
+  // Highlight the menu link for the current section
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        const currentId = entry.target.getAttribute("id");
+
+        navigationLinks.forEach((link) => {
+          const linkSection = link
+            .getAttribute("href")
+            .replace("#", "");
+
+          link.classList.toggle(
+            "active",
+            linkSection === currentId
+          );
+        });
+      });
+    },
+    {
+      rootMargin: "-35% 0px -55% 0px",
+      threshold: 0
+    }
+  );
+
+  pageSections.forEach((section) => {
+    sectionObserver.observe(section);
+  });
+</script>
+```
+
 </body>
 </html>
 

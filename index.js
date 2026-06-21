@@ -1,311 +1,445 @@
-databaseURL: "https://portfolio-rating-489af-default-rtdb.firebaseio.com/",
-console.log("script.js is working");
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import {
+  getDatabase,
+  onValue,
+  ref,
+  runTransaction,
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
 
-// Mobile menu
-const menuBtn = document.getElementById("menuBtn");
-const navLinks = document.getElementById("navLinks");
+const firebaseConfig = {
+  apiKey: "AIzaSyCqAq7PgbKgXa5aDSetuRuqSNNy0LFp2RI",
+  authDomain: "portfolio-rating-489af.firebaseapp.com",
+  databaseURL: "https://portfolio-rating-489af-default-rtdb.firebaseio.com/",
+  projectId: "portfolio-rating-489af",
+  storageBucket: "portfolio-rating-489af.firebasestorage.app",
+  messagingSenderId: "531742910389",
+  appId: "1:531742910389:web:2eafab8e5644ddfd36dbfc",
+  measurementId: "G-83GNMWVLYW",
+};
 
-if (menuBtn && navLinks) {
-  menuBtn.addEventListener("click", () => {
-    navLinks.classList.toggle("open");
-  });
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  document.querySelectorAll(".nav-links a").forEach((link) => {
-    link.addEventListener("click", () => {
-      navLinks.classList.remove("open");
-    });
-  });
-}
+function setupIntro() {
+  const intro = document.getElementById("cinematicIntro");
 
-// Current year
-const year = document.getElementById("year");
-
-if (year) {
-  year.textContent = new Date().getFullYear();
-}
-
-// Certificate pop-up preview
-const modal = document.getElementById("certModal");
-const modalTitle = document.getElementById("modalTitle");
-const modalContent = document.getElementById("modalContent");
-const closeModal = document.getElementById("closeModal");
-
-document.addEventListener("click", (e) => {
-  const btn = e.target.closest("[data-img]");
-
-  if (!btn) return;
-
-  const img = btn.dataset.img;
-  const title = btn.dataset.title;
-
-  if (!modal || !modalTitle || !modalContent) {
-    alert("Modal HTML is missing.");
+  if (reduceMotion) {
+    document.body.classList.remove("intro-playing");
+    intro?.remove();
     return;
   }
 
-  modalTitle.textContent = title;
+  window.setTimeout(() => {
+    document.body.classList.remove("intro-playing");
+    intro?.remove();
+  }, 2600);
+}
 
-  modalContent.innerHTML = `
-    <img 
-      src="${img}" 
-      alt="${title}" 
-      onerror="this.remove(); this.parentElement.textContent='Image not found: ${img}'">
-  `;
+function setupMobileMenu() {
+  const menuButton = document.getElementById("menuBtn");
+  const navigationLinks = document.getElementById("navLinks");
 
-  modal.classList.add("open");
-});
+  if (!menuButton || !navigationLinks) return;
 
-if (closeModal) {
-  closeModal.addEventListener("click", () => {
-    modal.classList.remove("open");
+  const setMenuOpen = (isOpen) => {
+    navigationLinks.classList.toggle("open", isOpen);
+    menuButton.setAttribute("aria-expanded", String(isOpen));
+  };
+
+  menuButton.addEventListener("click", () => {
+    setMenuOpen(!navigationLinks.classList.contains("open"));
+  });
+
+  navigationLinks.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => setMenuOpen(false));
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!navigationLinks.classList.contains("open")) return;
+    if (navigationLinks.contains(event.target) || menuButton.contains(event.target)) return;
+    setMenuOpen(false);
   });
 }
 
-if (modal) {
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      modal.classList.remove("open");
+function setupNavigation() {
+  const navigation = document.querySelector(".nav");
+  const linksContainer = document.querySelector(".nav-links");
+  const glider = document.getElementById("navGlider");
+  const links = Array.from(document.querySelectorAll('.nav-links a[href^="#"]:not(.btn)'));
+  const sections = document.querySelectorAll("header[id], main section[id]");
+  let activeLink = null;
+
+  if (!navigation) return;
+
+  const updateScrollState = () => {
+    navigation.classList.toggle("scrolled", window.scrollY > 40);
+  };
+
+  const moveGlider = (link) => {
+    if (!link || !glider || !linksContainer || window.innerWidth <= 900) return;
+
+    const linkRect = link.getBoundingClientRect();
+    const containerRect = linksContainer.getBoundingClientRect();
+
+    glider.style.setProperty("--glider-left", `${linkRect.left - containerRect.left}px`);
+    glider.style.setProperty("--glider-width", `${linkRect.width}px`);
+    glider.style.setProperty("--glider-opacity", "1");
+  };
+
+  links.forEach((link) => {
+    link.addEventListener("mouseenter", () => moveGlider(link));
+    link.addEventListener("focus", () => moveGlider(link));
+  });
+
+  linksContainer?.addEventListener("mouseleave", () => {
+    if (activeLink) {
+      moveGlider(activeLink);
+    } else if (glider) {
+      glider.style.setProperty("--glider-opacity", "0");
     }
   });
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntry = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (!visibleEntry) return;
+
+        const sectionId = visibleEntry.target.id;
+        activeLink = links.find((link) => link.getAttribute("href") === `#${sectionId}`) || null;
+
+        links.forEach((link) => link.classList.toggle("active", link === activeLink));
+        moveGlider(activeLink);
+      },
+      { rootMargin: "-30% 0px -58% 0px", threshold: [0, 0.2, 0.5] },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+  }
+
+  window.addEventListener("scroll", updateScrollState, { passive: true });
+  window.addEventListener("resize", () => moveGlider(activeLink));
+  updateScrollState();
 }
 
-// Contact form
-const contactForm = document.getElementById("contactForm");
-const formStatus = document.getElementById("formStatus");
+function setupHeroSpotlight() {
+  const hero = document.querySelector(".hero");
 
-if (contactForm && formStatus) {
-  contactForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  if (!hero || reduceMotion) return;
 
-    formStatus.textContent = "Sending...";
+  hero.addEventListener("pointermove", (event) => {
+    const rectangle = hero.getBoundingClientRect();
+    const x = ((event.clientX - rectangle.left) / rectangle.width) * 100;
+    const y = ((event.clientY - rectangle.top) / rectangle.height) * 100;
 
-    const formData = new FormData(contactForm);
+    hero.style.setProperty("--spot-x", `${x}%`);
+    hero.style.setProperty("--spot-y", `${y}%`);
+  });
 
-    const data = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      message: formData.get("message"),
-    };
-
-    try {
-      const response = await fetch("/api/telegram", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      const result = await response.json();
-
-      if (response.ok && result.ok) {
-        formStatus.textContent = "Message sent successfully. Thank you!";
-        contactForm.reset();
-      } else {
-        formStatus.textContent =
-          result.message || "Something went wrong. Please try again.";
-      }
-    } catch (error) {
-      formStatus.textContent =
-        "Network error. Please try again or email me directly.";
-    }
+  hero.addEventListener("pointerleave", () => {
+    hero.style.setProperty("--spot-x", "72%");
+    hero.style.setProperty("--spot-y", "40%");
   });
 }
 
-// Manual slider button click
-function moveSlide(button, direction) {
-  const slider = button.closest(".project-slider");
+function showSlide(slider, nextIndex) {
+  const images = Array.from(slider.querySelectorAll(".slides img"));
+  if (images.length < 2) return;
 
-  if (!slider) return;
-
-  changeSlide(slider, direction);
-}
-
-// Main slider function
-function changeSlide(slider, direction) {
-  const images = slider.querySelectorAll(".slides img");
-
-  if (images.length <= 1) return;
-
-  let currentIndex = 0;
-
-  images.forEach((img, index) => {
-    if (img.classList.contains("active")) {
-      currentIndex = index;
-    }
-  });
+  const currentIndex = Math.max(0, images.findIndex((image) => image.classList.contains("active")));
+  const normalizedIndex = (nextIndex + images.length) % images.length;
 
   images[currentIndex].classList.remove("active");
-
-  let nextIndex = currentIndex + direction;
-
-  if (nextIndex < 0) {
-    nextIndex = images.length - 1;
-  }
-
-  if (nextIndex >= images.length) {
-    nextIndex = 0;
-  }
-
-  images[nextIndex].classList.add("active");
+  images[normalizedIndex].classList.add("active");
 }
 
-// Auto slide every 3 seconds
-document.querySelectorAll(".project-slider").forEach((slider) => {
-  const images = slider.querySelectorAll(".slides img");
+function setupProjectSliders() {
+  document.querySelectorAll(".project-slider").forEach((slider) => {
+    const images = Array.from(slider.querySelectorAll(".slides img"));
+    const previousButton = slider.querySelector(".prev");
+    const nextButton = slider.querySelector(".next");
+    let intervalId = null;
 
-  if (images.length <= 1) return;
+    if (!images.length) return;
 
-  images.forEach((img) => img.classList.remove("active"));
-  images[0].classList.add("active");
+    images.forEach((image, index) => image.classList.toggle("active", index === 0));
 
-  setInterval(() => {
-    changeSlide(slider, 1);
-  }, 3000);
-});
+    const move = (direction) => {
+      const currentIndex = Math.max(0, images.findIndex((image) => image.classList.contains("active")));
+      showSlide(slider, currentIndex + direction);
+    };
 
-// Project card scroll reveal animation
-const projectCards = document.querySelectorAll(".project-card");
+    previousButton?.addEventListener("click", () => move(-1));
+    nextButton?.addEventListener("click", () => move(1));
 
-projectCards.forEach((card, index) => {
-  card.classList.add("reveal");
-  card.style.transitionDelay = `${index * 0.12}s`;
-});
+    if (images.length > 1 && !reduceMotion) {
+      const startAutoPlay = () => {
+        window.clearInterval(intervalId);
+        intervalId = window.setInterval(() => move(1), 3500);
+      };
 
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("show");
-      }
-    });
-  },
-  {
-    threshold: 0.15,
-  }
-);
+      const stopAutoPlay = () => window.clearInterval(intervalId);
 
-projectCards.forEach((card) => {
-  revealObserver.observe(card);
-});
-
-const certCards = document.querySelectorAll(".cert-list .cert");
-const seeMoreCertsBtn = document.getElementById("seeMoreCerts");
-
-if (certCards.length > 6 && seeMoreCertsBtn) {
-  certCards.forEach((cert, index) => {
-    if (index >= 6) {
-      cert.classList.add("hidden-cert");
+      slider.addEventListener("mouseenter", stopAutoPlay);
+      slider.addEventListener("mouseleave", startAutoPlay);
+      slider.addEventListener("focusin", stopAutoPlay);
+      slider.addEventListener("focusout", startAutoPlay);
+      startAutoPlay();
     }
   });
-
-  seeMoreCertsBtn.addEventListener("click", () => {
-    const isShowingAll = seeMoreCertsBtn.textContent.trim() === "See Less";
-
-    certCards.forEach((cert, index) => {
-      if (index >= 6) {
-        cert.classList.toggle("hidden-cert", isShowingAll);
-      }
-    });
-
-    seeMoreCertsBtn.textContent = isShowingAll ? "See More" : "See Less";
-  });
-} else if (seeMoreCertsBtn) {
-  seeMoreCertsBtn.style.display = "none";
 }
 
+function setupProjectReveal() {
+  const cards = document.querySelectorAll(".project-card");
 
+  if (reduceMotion || !("IntersectionObserver" in window)) {
+    cards.forEach((card) => card.classList.add("show"));
+    return;
+  }
 
-const contactForm = document.getElementById("contactForm");
-const formStatus = document.getElementById("formStatus");
+  cards.forEach((card, index) => {
+    card.classList.add("reveal");
+    card.style.transitionDelay = `${Math.min(index * 0.1, 0.5)}s`;
+  });
 
-if (contactForm && formStatus) {
-  contactForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("show");
+        observer.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.12 },
+  );
 
-    formStatus.textContent = "Sending...";
+  cards.forEach((card) => observer.observe(card));
+}
 
-    const formData = new FormData(contactForm);
+function setupCertificateModal() {
+  const modal = document.getElementById("certModal");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalContent = document.getElementById("modalContent");
+  const closeButton = document.getElementById("closeModal");
 
-    const data = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      message: formData.get("message"),
-    };
+  if (!modal || !modalTitle || !modalContent) return;
+
+  const closeModal = () => {
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("modal-open");
+    modalContent.textContent = "Certificate preview will show here.";
+  };
+
+  document.addEventListener("click", (event) => {
+    const trigger = event.target.closest("[data-img], [data-file]");
+    if (!trigger) return;
+
+    const title = trigger.dataset.title || "Certificate";
+    const file = trigger.dataset.img || trigger.dataset.file;
+    if (!file) return;
+
+    modalTitle.textContent = title;
+
+    if (file.toLowerCase().endsWith(".pdf")) {
+      const frame = document.createElement("iframe");
+      frame.src = file;
+      frame.title = title;
+      modalContent.replaceChildren(frame);
+    } else {
+      const image = document.createElement("img");
+      image.src = file;
+      image.alt = title;
+      image.addEventListener("error", () => {
+        modalContent.textContent = `File not found: ${file}`;
+      });
+      modalContent.replaceChildren(image);
+    }
+
+    modal.classList.add("open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("modal-open");
+    closeButton?.focus();
+  });
+
+  closeButton?.addEventListener("click", closeModal);
+
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) closeModal();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && modal.classList.contains("open")) closeModal();
+  });
+}
+
+function setupProgressiveList({ itemSelector, buttonId, initialCount, step, showAllAtEnd = false }) {
+  const items = Array.from(document.querySelectorAll(itemSelector));
+  const button = document.getElementById(buttonId);
+
+  if (!button || items.length <= initialCount) {
+    if (button) button.hidden = true;
+    return;
+  }
+
+  let visibleCount = initialCount;
+
+  const update = () => {
+    items.forEach((item, index) => {
+      item.hidden = index >= visibleCount;
+    });
+
+    const allVisible = visibleCount >= items.length;
+    button.textContent = allVisible ? "See Less" : "See More";
+    button.setAttribute("aria-expanded", String(allVisible));
+  };
+
+  button.addEventListener("click", () => {
+    if (visibleCount >= items.length) {
+      visibleCount = initialCount;
+    } else if (showAllAtEnd) {
+      visibleCount = items.length;
+    } else {
+      visibleCount = Math.min(visibleCount + step, items.length);
+    }
+
+    update();
+  });
+
+  update();
+}
+
+function setupContactForm() {
+  const form = document.getElementById("contactForm");
+  const status = document.getElementById("formStatus");
+
+  if (!form || !status) return;
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    status.textContent = "Sending...";
+
+    const data = Object.fromEntries(new FormData(form).entries());
 
     try {
       const response = await fetch("/api/telegram", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: data.name, email: data.email, message: data.message }),
       });
 
-      const result = await response.json();
+      const result = await response.json().catch(() => ({}));
 
-      if (response.ok && result.ok) {
-        formStatus.textContent = "Message sent successfully. Thank you!";
-        contactForm.reset();
-      } else {
-        formStatus.textContent =
-          result.message || "Something went wrong. Please try again.";
+      if (!response.ok || !result.ok) {
+        throw new Error(result.message || "Message could not be sent.");
       }
+
+      status.textContent = "Message sent successfully. Thank you!";
+      form.reset();
     } catch (error) {
-      formStatus.textContent =
-        "Network error. Please try again or email me directly.";
+      console.error(error);
+      status.textContent = "Could not send the message. Please use the Email Me button.";
     }
   });
 }
 
-// Portfolio rating system
-const ratingStars = document.querySelectorAll("#ratingStars button");
-const ratingStatus = document.getElementById("ratingStatus");
-const ratingAverage = document.getElementById("ratingAverage");
+function setupRating() {
+  const stars = Array.from(document.querySelectorAll("#ratingStars button"));
+  const status = document.getElementById("ratingStatus");
+  const average = document.getElementById("ratingAverage");
 
-let ratings = JSON.parse(localStorage.getItem("portfolioRatings")) || [];
+  if (!stars.length || !status || !average) return;
 
-function updateRatingAverage() {
-  if (!ratingAverage) return;
+  const highlight = (rating) => {
+    stars.forEach((star) => star.classList.toggle("active", Number(star.dataset.rate) <= rating));
+  };
 
-  if (ratings.length === 0) {
-    ratingAverage.textContent = "No ratings yet.";
-    return;
+  try {
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const ratingReference = ref(database, "portfolioRating");
+
+    onValue(
+      ratingReference,
+      (snapshot) => {
+        const data = snapshot.val();
+        if (!data?.count) {
+          average.textContent = "No ratings yet.";
+          return;
+        }
+
+        average.textContent = `${(data.total / data.count).toFixed(1)} / 5 from ${data.count} rating${data.count === 1 ? "" : "s"}`;
+      },
+      () => {
+        average.textContent = "Rating is temporarily unavailable.";
+      },
+    );
+
+    const previousRating = Number(localStorage.getItem("portfolioRated"));
+    if (previousRating) {
+      highlight(previousRating);
+      status.textContent = `You already rated this website ${previousRating}/5.`;
+    }
+
+    stars.forEach((star) => {
+      star.addEventListener("click", async () => {
+        if (localStorage.getItem("portfolioRated")) {
+          status.textContent = "You already rated this website.";
+          return;
+        }
+
+        const rating = Number(star.dataset.rate);
+        stars.forEach((item) => { item.disabled = true; });
+
+        try {
+          await runTransaction(ratingReference, (current) => ({
+            total: (current?.total || 0) + rating,
+            count: (current?.count || 0) + 1,
+          }));
+
+          localStorage.setItem("portfolioRated", String(rating));
+          highlight(rating);
+          status.textContent = `Thank you! You rated ${rating}/5.`;
+        } catch (error) {
+          console.error(error);
+          status.textContent = "Rating could not be saved. Please try again.";
+          stars.forEach((item) => { item.disabled = false; });
+        }
+      });
+    });
+  } catch (error) {
+    console.error(error);
+    average.textContent = "Rating is temporarily unavailable.";
   }
-
-  const total = ratings.reduce((sum, rating) => sum + rating, 0);
-  const average = total / ratings.length;
-
-  ratingAverage.textContent = `${average.toFixed(1)} / 5 from ${ratings.length} rating${ratings.length > 1 ? "s" : ""}`;
 }
 
-function highlightStars(rating) {
-  ratingStars.forEach((star) => {
-    const starValue = Number(star.dataset.rate);
-
-    if (starValue <= rating) {
-      star.classList.add("active");
-    } else {
-      star.classList.remove("active");
-    }
-  });
+function setCurrentYear() {
+  const year = document.getElementById("year");
+  if (year) year.textContent = String(new Date().getFullYear());
 }
 
-ratingStars.forEach((star) => {
-  star.addEventListener("click", () => {
-    const rating = Number(star.dataset.rate);
-
-    ratings.push(rating);
-    localStorage.setItem("portfolioRatings", JSON.stringify(ratings));
-
-    highlightStars(rating);
-
-    if (ratingStatus) {
-      ratingStatus.textContent = `Thank you! You rated ${rating}/5.`;
-    }
-
-    updateRatingAverage();
-  });
+setupIntro();
+setupMobileMenu();
+setupNavigation();
+setupHeroSpotlight();
+setupProjectSliders();
+setupProjectReveal();
+setupCertificateModal();
+setupProgressiveList({
+  itemSelector: "#experience .timeline-item",
+  buttonId: "seeMoreExperience",
+  initialCount: 3,
+  step: 3,
 });
-
-updateRatingAverage();
+setupProgressiveList({
+  itemSelector: ".cert-list .cert",
+  buttonId: "seeMoreCerts",
+  initialCount: 6,
+  step: 6,
+  showAllAtEnd: true,
+});
+setupContactForm();
+setupRating();
+setCurrentYear();

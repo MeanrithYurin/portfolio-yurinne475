@@ -45,7 +45,7 @@ ${message}
         ok: false,
         message: "Telegram failed to send message.",
       });
-    }
+    }6
 
     return res.status(200).json({
       ok: true,
